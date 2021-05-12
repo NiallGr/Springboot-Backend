@@ -6,13 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +29,7 @@ public class foodItemController {
 	@Autowired
 	private foodItemRepository FoodItemRepository;
 
-// get all FoodItems
+// get all FoodItems API
 
 	@GetMapping("/foodItems")
 	public List<FoodItem> getAllFoodItem() {
@@ -38,13 +37,13 @@ public class foodItemController {
 	}
 
 
-// Create FoodItem 
+// Create FoodItem API
 	@PostMapping("/foodItems")
 	public FoodItem createFoodItem(@RequestBody FoodItem fooditem) {
 		return FoodItemRepository.save(fooditem);
 	}
 
-// Get FoodItem by ID 
+// Get FoodItem by ID API
 	@GetMapping("/foodItems/{id}")
 	public ResponseEntity<FoodItem> getFoodItemById(@PathVariable Long id) {
 		
@@ -52,4 +51,19 @@ public class foodItemController {
 				.orElseThrow(() -> new resourceNotFoundException("Food Item does not exist with id :" + id));
 			return ResponseEntity.ok(fooditem);
 		}
+	
+// updated FoodItem API
+	@PutMapping("/foodItems/{id}")
+	public ResponseEntity<FoodItem> updateFoodItem(@PathVariable Long id, @RequestBody FoodItem foodItemDetails) {
+		  
+		FoodItem fooditem = FoodItemRepository.findById(id)
+				.orElseThrow(() -> new resourceNotFoundException("Food Item does not exist with id :" + id));
+		
+		fooditem.setName(foodItemDetails.getName());
+		fooditem.setFoodGroup(foodItemDetails.getFoodGroup());
+		fooditem.setPrice(foodItemDetails.getPrice());
+		
+		FoodItem updateFoodItem = FoodItemRepository.save(fooditem);
+		return ResponseEntity.ok(updateFoodItem);
+	}
 }
