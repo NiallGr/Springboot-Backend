@@ -1,13 +1,13 @@
 package StoreBackend.Springboot.controller;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,5 +65,17 @@ public class foodItemController {
 		
 		FoodItem updateFoodItem = FoodItemRepository.save(fooditem);
 		return ResponseEntity.ok(updateFoodItem);
+	}
+	
+// Delete FoodItem API
+	@DeleteMapping("/foodItems/{id}")
+	public ResponseEntity<Map<String, Boolean>> deleteFoodItem(@PathVariable Long id) {
+		FoodItem fooditem = FoodItemRepository.findById(id)
+				.orElseThrow(() -> new resourceNotFoundException("Food Item does not exist with id :" + id));
+		
+		FoodItemRepository.delete(fooditem);
+		Map<String, Boolean> responce = new HashMap<>();
+		responce.put("deleted", Boolean.TRUE);
+		return ResponseEntity.ok(responce);
 	}
 }

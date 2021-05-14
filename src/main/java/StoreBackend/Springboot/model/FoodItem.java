@@ -24,15 +24,21 @@ public class FoodItem {
 			@Column(name = "food_price")
 			private float Price;
 			
+			@Column(name = "img_url")
+			private String ImgUrl;
+			
+			
+
 			public FoodItem() {
 				
 			}
 		
-			public FoodItem(String name, String foodGroup, float price) {
+			public FoodItem(String name, String foodGroup, float price, String imgUrl) {
 				super();
 				Name = name;
 				FoodGroup = foodGroup;
 				Price = price;
+				ImgUrl = imgUrl;
 			}
 			
 			public long getId() {
@@ -58,6 +64,13 @@ public class FoodItem {
 			}
 			public void setPrice(float price) {
 				Price = price;
+			}
+			public String getImgUrl() {
+				return ImgUrl;
+			}
+
+			public void setImgUrl(String imgUrl) {
+				ImgUrl = imgUrl;
 			}
 			
 			
