@@ -13,7 +13,7 @@ public class Purchase {
 
 	private Customer customer;
 	private Address shippingAddress;
-	private Address bullingAddress;
+	private Address billingAddress;
 	private Order order;
 	private Set<OrderItem> orderItems;
 	
