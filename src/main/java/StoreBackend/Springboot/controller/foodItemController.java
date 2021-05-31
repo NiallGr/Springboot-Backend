@@ -30,7 +30,7 @@ public class foodItemController {
 	private foodItemRepository FoodItemRepository;
 
 // get all FoodItems API
-
+	
 	@GetMapping("/foodItems")
 	public List<FoodItem> getAllFoodItem() {
 		return FoodItemRepository.findAll();
