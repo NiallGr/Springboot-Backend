@@ -28,27 +28,42 @@ public class CheckoutServiceImpl implements CheckoutService{
 	@Override
 	@Transactional
 	public PurchaseResponse placeOrder(Purchase purchase) {
-		//
+		//retrieve the order data info from dto
 		Order order = purchase.getOrder();
-		//
+		
+		// generate tracking number
 		String orderTrackingNumber = generateOrderTrackingNumber();
 		order.setOrderTrackingNumber(orderTrackingNumber);
-		//
+		
+		// populate order with orderItems
 		Set<OrderItem> orderItems = purchase.getOrderItems();
 		orderItems.forEach(item -> order.add(item));
-		//
+		
+		//Populate order with billing address and shipping address
 		order.setBillingAddress(purchase.getBillingAddress());
 		order.setShippingAddress(purchase.getShippingAddress());
-		//
 		Customer customer = purchase.getCustomer();
+		
+//		// check if this is an existing customer
+//        String theEmail = customer.getEmail();
+//
+//        Customer customerFromDB = CustomerRepository.findByEmail(theEmail);
+//
+//        if (customerFromDB != null) {
+//            // we found them ... let's assign them accordingly
+//            customer = customerFromDB;
+//        }
+
+		
 		customer.add(order);
-		//
+		
+		// Save to the database
 		customerRepository.save(customer);
-		//
+		
 		return new PurchaseResponse(orderTrackingNumber);
 	}
 	private String generateOrderTrackingNumber() {
-		
+		// Generate a random UUID Number 
 		return UUID.randomUUID().toString();
 	}
 
