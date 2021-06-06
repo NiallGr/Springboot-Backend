@@ -43,16 +43,11 @@ public class Order {
 	@Column(name="total_price")
 	private BigDecimal totalPrice;
 	
-	@Column(name="status")
-	private String status;
 	
 	@Column(name="date_created")
 	@CreationTimestamp
 	private Date dateCreated;
 	
-	@Column(name="last_updated")
-	@UpdateTimestamp
-	private Date lastUpdated;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
 	private Set<OrderItem> orderItems = new HashSet<>();
