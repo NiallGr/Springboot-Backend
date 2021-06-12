@@ -14,6 +14,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="address")
+// Lombox for getter & Setters
 @Getter
 @Setter
 public class Address {

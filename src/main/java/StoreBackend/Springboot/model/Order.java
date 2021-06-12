@@ -25,6 +25,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="orders")
+//Lombox for getter & Setters
 @Getter
 @Setter
 public class Order {

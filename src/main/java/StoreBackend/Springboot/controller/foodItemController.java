@@ -59,10 +59,16 @@ public class foodItemController {
 		FoodItem fooditem = FoodItemRepository.findById(id)
 				.orElseThrow(() -> new resourceNotFoundException("Food Item does not exist with id :" + id));
 		
+//			Set New Name
 		fooditem.setName(foodItemDetails.getName());
+//		  	Set new Food Group
 		fooditem.setFoodGroup(foodItemDetails.getFoodGroup());
+//		 	Set new Price
 		fooditem.setPrice(foodItemDetails.getPrice());
+//			Set new ImgUrl
+		fooditem.setImgUrl(foodItemDetails.getImgUrl());
 		
+//			Save and update DB
 		FoodItem updateFoodItem = FoodItemRepository.save(fooditem);
 		return ResponseEntity.ok(updateFoodItem);
 	}

@@ -32,7 +32,7 @@ public class FoodItem {
 			public FoodItem() {
 				
 			}
-		
+			// food item object
 			public FoodItem(String name, String foodGroup, float price, String imgUrl) {
 				super();
 				Name = name;

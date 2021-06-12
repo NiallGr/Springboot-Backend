@@ -59,7 +59,7 @@ public class CheckoutServiceImpl implements CheckoutService{
 		
 		// Save to the database
 		customerRepository.save(customer);
-		
+		// return unique tracking number
 		return new PurchaseResponse(orderTrackingNumber);
 	}
 	private String generateOrderTrackingNumber() {
